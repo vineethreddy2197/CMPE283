@@ -1,7 +1,50 @@
+<h1>Assignment 1<h1>
+Steps followed:
+Update the files arch/x86/kvm/vmx/vmx.c and arch/x86/kvm/cpuid.c
+
+Rebuild the kernel using make modules command and make INSTALL_MOD_STRIP=1 modules_install && make install.
+
+Run lsmod | grep kvm to check if the kvm modules are preloaded.
+
+If they are already present remove them using rmmod kvm and rmmod kvm_intel commands.
+
+Run modprobe kvm and modprobe kvm_intel commands to reload edited kvm modules.
+
+Optional- We installed GUI for out Ubuntu host for a friendly UI and ease fo work. Also, we wanted to use Virtual machine manager to created the nested VM. GUI can be enabled on Ubuntu VM using below commands:(ref)
+$ sudo apt-get install gnome-shell
+$ sudo apt-get install ubuntu-gnome-desktop
+$ sudo apt-get install autocutsel
+$ sudo apt-get install gnome-core
+$ sudo apt-get install gnome-panel
+$ sudo apt-get install gnome-themes-standard
+
+Install xrdp through the below commands- we need this to be able to access Ubuntu in GUI mode.
+sudo apt-get update
+sudo apt-get install -y xrdp
+sudo apt-get install -y xfce4
+sudo service xrdp restart
+
+Login to the host VM using RDP to have graphical interface.
+
+To enable the kvm module in the host and install necessary packages, run the below commands from host terminal: (ref)
+sudo apt install qemu qemu-kvm qemu-system qemu-utils
+sudo apt install libvirt-clients libvirt-daemon-system virtinst
+
+Run Virtual Machine Manager and create a new VM inside the host. (download the iso file or guest VM as a prerequisite)
+
+Install Guest OS once the VM is created and login to the nested VM.
+
+Install CPUID using sudo apt install cpuid if it is an Ubuntu VM
+
+Run the command cpuid -l 0x4FFFFFFF to verify the output.
+
+Run the test bash script to produce results and print number of exits.
+
+Run the test2 bash script to produce number of cycles in ebx and ecx registers when eax=0x4ffffffe.
 <h1>CMPE 283 Assignments</h1>
 <h3>By Vineeth Reddy</h3>
 
-<h2>Assignment-02-Instrumentation via hypercall</h2>
+<h2>Assignment-02</h2>
 
 <h3>Work done (015363556):</h3>
 We began working on the assignment 02 once our assignment 01 environment was built successfully. We decided to edit the cpuid.c and vmx.c at first and then rebuild the kernel. I edited the cpuid.c and added if..else condition in the kvm_emulate_cpuid block code and commited it to the GitHub repo inside /arch/x86/kvm. After Sumeet commited the changes he made to vmx.c, I rebuilt the kernel and rebooted the VM. I also installed KVM on the hypervisor so that a guest VM can be created and test script can be executed on that.  <br>
